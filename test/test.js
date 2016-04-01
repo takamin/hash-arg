@@ -80,6 +80,7 @@ HashArg = require('../lib/index.js');
             "pass:", test_result.pass, ",",
             "fail:", test_result.fail);
     if(!test_result.fail > 0) {
-        process.exit(1);
+        process.exit(0);
     }
+    process.exit(1);
 }());

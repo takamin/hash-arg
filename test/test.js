@@ -1,3 +1,4 @@
+util = require('util');
 HashArg = require('../lib/index.js');
 (function() {
     var test_cases = [
@@ -27,6 +28,19 @@ HashArg = require('../lib/index.js');
                 "B" : null,
                 "C" : 1234
             }
+        ],[
+            [
+                { "name": "A", "default":"" },
+                { "name": "B", },
+                { "name": "C", "default":1234 }
+            ],
+            [ "AAA", "BBB", "CCC", "DDD", "EEE"],
+            {
+                "A" : "AAA",
+                "B" : "BBB",
+                "C" : "CCC",
+                "": ["DDD", "EEE"]
+            }
         ]
     ];
     if(process.argv.length == 2 + 3) {
@@ -40,19 +54,34 @@ HashArg = require('../lib/index.js');
                 }]);
     }
     var test_result = { "pass":0, "fail":0, "log":[] };
+    function match(a,b) {
+        var result = true;
+        Object.keys(a).forEach(function(key) {
+            if(!util.isArray(a[key])) {
+                if(b[key] !== a[key]) {
+                    result = false;
+                }
+            } else if(!util.isArray(b[key])) {
+                result = false;
+            } else {
+                for(var i = 0; i < a[key].length; i++) {
+                    if(a[key][i] !== b[key][i]) {
+                        result = false;
+                    }
+                }
+            }
+        });
+        return result;
+    }
     function testHashArg(argdefs, argv, answer) {
         var result = true;
         var args = HashArg.get(argdefs, argv);
-        Object.keys(answer).forEach(function(key) {
-            if(args[key] !== answer[key]) {
-                result = false;
-            }
-        });
-        Object.keys(args).forEach(function(key) {
-            if(args[key] !== answer[key]) {
-                result = false;
-            }
-        });
+        if(!match(answer, args)) {
+            result = false;
+        }
+        if(!match(args, answer)) {
+            result = false;
+        }
         test_result.log.push({
             "input": {
                 "argdefs"   : argdefs,

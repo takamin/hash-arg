@@ -52,6 +52,23 @@ HashArg = require('../lib/index.js');
                     "C":"CCC",
                     "D": null
                 }]);
+        test_cases.push([
+                "A B C D", process.argv,
+                {
+                    "A":"AAA",
+                    "B":"BBB",
+                    "C":"CCC",
+                    "D": null
+                }]);
+    } else {
+        test_cases.push([
+                "A B C D", process.argv,
+                {
+                    "A": null,
+                    "B": null,
+                    "C": null,
+                    "D": null
+                }]);
     }
     var test_result = { "pass":0, "fail":0, "log":[] };
     function match(a,b) {

@@ -42,7 +42,7 @@ getopt = require("node-getopt").create([
     ['S', 'short-with-arg=ARG', 'option with argument']
 ]).parseSystem();
 
-args = require("../lib").get([
+args = require("hash-arg").get([
         "inputFilePath",
         {
             "name":"outputFilePath",

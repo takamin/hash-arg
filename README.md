@@ -82,6 +82,12 @@ The string that contains parameter names separated by space.
 "inputFilePath outputFilePath"
 ```
 
+If the string contains ';' character, each elements splited by the character declare the type and name.
+
+```
+"string inputFilePath; number countOfFile"
+```
+
 __2) Array of string__
 
 Each element represents the parameter name.
@@ -90,10 +96,17 @@ Each element represents the parameter name.
 ["inputFilePath", "outputFilePath"]
 ```
 
+If the declaration is separated by space, it represents the type and its name.
+
+```
+["string inputFilePath", "number countOfFile"]
+```
+
 __3) Array of definition object__
 
-In this format, You can specify a special default value.
+In this format, You can specify that type of the value is 'string' or 'number', and default value.
 
+The type's default is 'string'.
 When the default was not declared, null value will be used.
 
 ```
@@ -101,6 +114,7 @@ When the default was not declared, null value will be used.
     {"name":"inputFilePath"},
     {
         "name"      : "outputFilePath",
+        "type"      : "string" // 'string' or 'number'
         "default"   : "out.json"
     }
 ]

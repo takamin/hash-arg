@@ -41,6 +41,48 @@ HashArg = require('../lib/index.js');
                 "C" : "CCC",
                 "": ["DDD", "EEE"]
             }
+        ],[
+            [
+                { "name": "str", "type": "string" },
+                { "name": "num", "type": "number" },
+                { "name": "numstr", "type": "string" },
+                { "name": "strnum", "type": "number" },
+                { "name": "dflstr" }
+            ],
+            [ "AAA", "123", "123", "ABC", "456" ],
+            {
+                "str" : "AAA",
+                "num" : 123,
+                "numstr" : "123",
+                "strnum" : "NaN",
+                "dflstr": "456"
+            }
+        ],[
+            [
+                "string str",
+                "number num",
+                "string numstr",
+                "number strnum",
+                "dflstr"
+            ],
+            [ "AAA", "123", "123", "ABC", "456" ],
+            {
+                "str" : "AAA",
+                "num" : 123,
+                "numstr" : "123",
+                "strnum" : "NaN",
+                "dflstr": "456"
+            }
+        ],[
+            "string str;number num; string numstr ;number strnum  ;  dflstr",
+            [ "AAA", "123", "123", "ABC", "456" ],
+            {
+                "str" : "AAA",
+                "num" : 123,
+                "numstr" : "123",
+                "strnum" : "NaN",
+                "dflstr": "456"
+            }
         ]
     ];
     if(process.argv.length == 2 + 3) {

@@ -106,7 +106,7 @@ __3) Array of definition object__
 
 In this format, You can specify the type of the value that is 'string' or 'number', and the default value.
 
-The default typet is 'string'.
+The default type is 'string'.
 
 When the default value is not declared, null will be used.
 

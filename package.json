@@ -1,6 +1,6 @@
 {
     "name": "hash-arg",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description":
         "Get argv as an object represented by specified keys and values",
     "repository": {

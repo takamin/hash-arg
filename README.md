@@ -104,10 +104,11 @@ If the declaration is separated by space, it represents the type and its name.
 
 __3) Array of definition object__
 
-In this format, You can specify that type of the value is 'string' or 'number', and default value.
+In this format, You can specify the type of the value that is 'string' or 'number', and the default value.
 
-The type's default is 'string'.
-When the default was not declared, null value will be used.
+The default typet is 'string'.
+
+When the default value is not declared, null will be used.
 
 ```
 [

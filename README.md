@@ -96,10 +96,22 @@ Each element represents the parameter name.
 ["inputFilePath", "outputFilePath"]
 ```
 
+_type declaration_:
+
 If the declaration is separated by space, it represents the type and its name.
 
 ```
 ["string inputFilePath", "number countOfFile"]
+```
+
+_declaration as array_:
+
+When the type is specified like above, the last argument can be set as array.
+The rest arguments in the list will be contained to the parameter.
+This specification is only available for this 'Array-of-string' type declaration.
+
+```
+["string inputFilePath", "number[] countOfFile"]
 ```
 
 __3) Array of definition object__

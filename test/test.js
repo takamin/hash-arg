@@ -1,6 +1,7 @@
-util = require('util');
-HashArg = require('../lib/index.js');
-(function() {
+var util = require('util');
+var chai = require("chai");
+var HashArg = require('../lib/index.js');
+describe("hash-arg", function() {
     var test_cases = [
         [
             "A B C", ["1","2"],
@@ -109,20 +110,6 @@ HashArg = require('../lib/index.js');
                 "x" : "0",
                 "num" : [123, 456]
             }
-        ],[
-            ["string[] str", "string[] x"],
-            [ "AAA", "123", "123", "ABC", "456" ],
-            {
-                "str" : "AAA",
-                "x": ["123", "123", "ABC", "456"]
-            }
-        ],[
-            ["number[] num", "number[] x"],
-            [ "0", "123", "456"],
-            {
-                "num" : 0,
-                "x": [123, 456]
-            }
         ]
     ];
     if(process.argv.length == 2 + 3) {
@@ -152,7 +139,6 @@ HashArg = require('../lib/index.js');
                     "D": null
                 }]);
     }
-    var test_result = { "pass":0, "fail":0, "log":[] };
     function match(a,b) {
         var result = true;
         Object.keys(a).forEach(function(key) {
@@ -173,42 +159,39 @@ HashArg = require('../lib/index.js');
         return result;
     }
     function testHashArg(argdefs, argv, answer) {
-        var result = true;
         var args = HashArg.get(argdefs, argv);
+        var result = true;
         if(!match(answer, args)) {
             result = false;
         }
         if(!match(args, answer)) {
             result = false;
         }
-        test_result.log.push({
-            "input": {
-                "argdefs"   : argdefs,
-                "argv"      : argv
-            },
-            "correct-answer"    : answer,
-            "output"  : args,
-            "result"    : result
-        });
-        if(result) {
-            test_result.pass++;
-        } else {
-            test_result.fail++;
-        }
         return result;
     };
 
     // Run all test case
     test_cases.forEach(function(test_case) {
-        testHashArg.apply(null, test_case);
+        it(JSON.stringify(test_case[0]), function() {
+            chai.assert(testHashArg.apply(null, test_case));
+        });
     });
-    console.log(JSON.stringify(test_result, null, "  "));
-    console.log(
-            "test:", (test_result.pass + test_result.fail), ",",
-            "pass:", test_result.pass, ",",
-            "fail:", test_result.fail);
-    if(!test_result.fail > 0) {
-        process.exit(0);
-    }
-    process.exit(1);
-}());
+    describe("The array type can be specified for only last argumnent definition", function() {
+        it("should throw an error for array type of string", function() {
+            try {
+                HashArg.get("string[] str", "string[] x");
+                chai.assert(false);
+            } catch(err) {
+                chai.assert(true);
+            }
+            });
+        it("should throw an error for array type of number", function() {
+            try {
+                HashArg.get("string[] str", "string[] x");
+                chai.assert(false);
+            } catch(err) {
+                chai.assert(true);
+            }
+        });
+    });
+});

@@ -60,6 +60,42 @@ describe("hash-arg", function() {
             }
         ],[
             [
+                { "name": "num", "type": "number[]" },
+            ],
+            [ "123", "456", "789", "A" ],
+            {
+                "num" : [123,456,789,"NaN"]
+            }
+        ],[
+            [
+                { "name": "str", "type": "string" },
+                { "name": "num", "type": "number[]" },
+            ],
+            [ "AAA", "123", "456", "789", "A" ],
+            {
+                "str" : "AAA",
+                "num" : [123,456,789,"NaN"]
+            }
+        ],[
+            [
+                { "name": "str", "type": "string[]" }
+            ],
+            [ "123", "456", "789", "A" ],
+            {
+                "str" : ["123","456","789","A"]
+            }
+        ],[
+            [
+                { "name": "num", "type": "number" },
+                { "name": "str", "type": "string[]" }
+            ],
+            [ "AAA", "123", "456", "789", "A" ],
+            {
+                "num" : "NaN",
+                "str" : ["123","456","789","A"]
+            }
+        ],[
+            [
                 "string str",
                 "number num",
                 "string numstr",
@@ -75,7 +111,33 @@ describe("hash-arg", function() {
                 "dflstr": "456"
             }
         ],[
+            [
+                "str:string",
+                " num : number ",
+                "numstr : string",
+                " strnum:number ",
+                "dflstr"
+            ],
+            [ "AAA", "123", "123", "ABC", "456" ],
+            {
+                "str" : "AAA",
+                "num" : 123,
+                "numstr" : "123",
+                "strnum" : "NaN",
+                "dflstr": "456"
+            }
+        ],[
             "string str;number num; string numstr ;number strnum  ;  dflstr",
+            [ "AAA", "123", "123", "ABC", "456" ],
+            {
+                "str" : "AAA",
+                "num" : 123,
+                "numstr" : "123",
+                "strnum" : "NaN",
+                "dflstr": "456"
+            }
+        ],[
+            "str:string;num: number; numstr: string ;strnum:number ;  dflstr",
             [ "AAA", "123", "123", "ABC", "456" ],
             {
                 "str" : "AAA",
@@ -109,6 +171,18 @@ describe("hash-arg", function() {
             {
                 "x" : "0",
                 "num" : [123, 456]
+            }
+        ],[
+            ["str:string[]"],
+            [ "AAA", "123", "123", "ABC", "456" ],
+            {
+                "str" : ["AAA", "123", "123", "ABC", "456"]
+            }
+        ],[
+            ["num: number[]"],
+            [ "0", "123", "456"],
+            {
+                "num" : [0, 123, 456]
             }
         ]
     ];
@@ -177,21 +251,41 @@ describe("hash-arg", function() {
         });
     });
     describe("The array type can be specified for only last argumnent definition", function() {
-        it("should throw an error for array type of string", function() {
-            try {
-                HashArg.get("string[] str", "string[] x");
-                chai.assert(false);
-            } catch(err) {
-                chai.assert(true);
-            }
+        describe("C-style type specification", function() {
+            it("should throw an error for array type of string", function() {
+                try {
+                    HashArg.get("string[] str", "string[] x");
+                    chai.assert(false);
+                } catch(err) {
+                    chai.assert(true);
+                }
             });
-        it("should throw an error for array type of number", function() {
-            try {
-                HashArg.get("string[] str", "string[] x");
-                chai.assert(false);
-            } catch(err) {
-                chai.assert(true);
-            }
+            it("should throw an error for array type of number", function() {
+                try {
+                    HashArg.get("number[] num", "number[] n");
+                    chai.assert(false);
+                } catch(err) {
+                    chai.assert(true);
+                }
+            });
+        });
+        describe("UML-style type specification", function() {
+            it("should throw an error for array type of string", function() {
+                try {
+                    HashArg.get("str:string[]", "x:string[]");
+                    chai.assert(false);
+                } catch(err) {
+                    chai.assert(true);
+                }
+            });
+            it("should throw an error for array type of number", function() {
+                try {
+                    HashArg.get("num:number[]", "n:number[]");
+                    chai.assert(false);
+                } catch(err) {
+                    chai.assert(true);
+                }
+            });
         });
     });
 });

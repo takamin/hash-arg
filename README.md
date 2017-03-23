@@ -88,6 +88,13 @@ If the string contains ';' character, each elements splited by the character dec
 "string inputFilePath; number countOfFile"
 ```
 
+Or, following type specification is available too.
+It is used in a UML class diagram.
+
+```
+"inputFilePath string; countOfFile:number"
+```
+
 __2) Array of string__
 
 Each element represents the parameter name.
@@ -104,14 +111,10 @@ If the declaration is separated by space, it represents the type and its name.
 ["string inputFilePath", "number countOfFile"]
 ```
 
-_declaration as array_:
-
-When the type is specified like above, the last argument can be set as array.
-The rest arguments in the list will be contained to the parameter.
-This specification is only available for this 'Array-of-string' type declaration.
+And, Following is available too.
 
 ```
-["string inputFilePath", "number[] countOfFile"]
+["inputFilePath:string", "countOfFile:number"]
 ```
 
 __3) Array of definition object__
@@ -129,6 +132,43 @@ When the default value is not declared, null will be used.
         "name"      : "outputFilePath",
         "type"      : "string" // 'string' or 'number'
         "default"   : "out.json"
+    }
+]
+```
+
+### Type Specification
+
+To specify the type to a named parameter.
+Following two styles are available.
+
+1. _<type>_ _<name>_ ( C/C++ style )
+2. _<name>_:_<type>_ ( UML )
+
+
+### Array Type Specification
+
+The last argument can be set as an array.
+The rest arguments in the list will be contained to the parameter.
+
+To specify, pair of square brackets could be put after the type name.
+The brackets must be empty.
+
+Followings are all now available.
+
+```
+["string inputFilePath", "number[] countOfFile"]
+```
+
+```
+["inputFilePath:string", "countOfFile:number[]"]
+```
+
+```
+[
+    {"name":"inputFilePath"},
+    {
+        "name"      : "outputFilePath",
+        "type"      : "string[]"
     }
 ]
 ```

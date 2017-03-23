@@ -141,8 +141,8 @@ When the default value is not declared, null will be used.
 To specify the type to a named parameter.
 Following two styles are available.
 
-1. _<type>_ _<name>_ ( C/C++ style )
-2. _<name>_:_<type>_ ( UML )
+1. "_`<type> <name>`_" - ( C/C++ style )
+2. "_`<name> : <type>`_" - ( UML style )
 
 
 ### Array Type Specification

@@ -179,7 +179,7 @@ An array of string to parse as command line parameters.
 
 The `process.argv` is used by default, when it is not specified,
 
-LICENCE
+LICENSE
 -------
 
 MIT

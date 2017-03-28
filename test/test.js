@@ -184,6 +184,33 @@ describe("hash-arg", function() {
             {
                 "num" : [0, 123, 456]
             }
+        ],[
+            'A="";B;C=1234', [/* NO PARAMETER */],
+            {
+                "A" : "",
+                "B" : null,
+                "C" : 1234
+            }
+        ],[
+            'C=1234', [/* NO PARAMETER */],
+            {
+                "C" : 1234
+            }
+        ],[
+            'C:number=1234', [/* NO PARAMETER */],
+            {
+                "C" : 1234
+            }
+        ],[
+            'C:string=1234', [/* NO PARAMETER */],
+            {
+                "C" : "1234"
+            }
+        ],[
+            'A:string="ABC"', [/* NO PARAMETER */],
+            {
+                "A" : "ABC"
+            }
         ]
     ];
     if(process.argv.length == 2 + 3) {

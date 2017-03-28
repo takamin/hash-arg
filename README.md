@@ -88,12 +88,15 @@ If the string contains ';' character, each elements splited by the character dec
 "string inputFilePath; number countOfFile"
 ```
 
-Or, following type specification is available too.
+Or, following type specification is also available.
 It is used in a UML class diagram.
 
 ```
-"inputFilePath string; countOfFile:number"
+"inputFilePath:string; countOfFile:number"
 ```
+
+When the type is not specified,
+it is regarded for `var`.
 
 __2) Array of string__
 
@@ -105,7 +108,14 @@ Each element represents the parameter name.
 
 _type declaration_:
 
-If the declaration is separated by space, it represents the type and its name.
+You can specify the type of the value.
+The available type is 'string' or 'number'.
+
+When the declaration is separated by space,
+it represents the type and its name.
+
+And, when it is separated by semi-colon,
+those are the name and its type.
 
 ```
 ["string inputFilePath", "number countOfFile"]
@@ -117,13 +127,22 @@ And, Following is available too.
 ["inputFilePath:string", "countOfFile:number"]
 ```
 
-__3) Array of definition object__
+_specify default value_:
 
-In this format, You can specify the type of the value that is 'string' or 'number', and the default value.
+You can specify the default value, If the value is not specified.
 
-The default type is 'string'.
+```
+['inputFilePath:string="foo.txt"', "countOfFile:number=1234"]
+```
+A string value must be quoted by double quotation rather
+than single, or the parsing will fail.
+This is a specification of JSON.parse.
 
 When the default value is not declared, null will be used.
+
+__3) Array of definition object__
+
+Following declaration is available.
 
 ```
 [

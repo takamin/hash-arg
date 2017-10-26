@@ -1,4 +1,3 @@
-var util = require('util');
 var chai = require("chai");
 var HashArg = require('../lib/index.js');
 describe("hash-arg", function() {
@@ -243,11 +242,11 @@ describe("hash-arg", function() {
     function match(a,b) {
         var result = true;
         Object.keys(a).forEach(function(key) {
-            if(!util.isArray(a[key])) {
+            if(!Array.isArray(a[key])) {
                 if(b[key] !== a[key]) {
                     result = false;
                 }
-            } else if(!util.isArray(b[key])) {
+            } else if(!Array.isArray(b[key])) {
                 result = false;
             } else {
                 for(var i = 0; i < a[key].length; i++) {
@@ -259,22 +258,12 @@ describe("hash-arg", function() {
         });
         return result;
     }
-    function testHashArg(argdefs, argv, answer) {
-        var args = HashArg.get(argdefs, argv);
-        var result = true;
-        if(!match(answer, args)) {
-            result = false;
-        }
-        if(!match(args, answer)) {
-            result = false;
-        }
-        return result;
-    };
 
     // Run all test case
     test_cases.forEach(function(test_case) {
         it(JSON.stringify(test_case[0]), function() {
-            chai.assert(testHashArg.apply(null, test_case));
+            var args = HashArg.get(test_case[0], test_case[1]);
+            chai.assert.deepEqual(test_case[2], args);
         });
     });
     describe("The array type can be specified for only last argumnent definition", function() {

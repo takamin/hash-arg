@@ -1,6 +1,8 @@
 hash-arg 
 ========
 
+[![Build Status](https://travis-ci.org/takamin/hash-arg.svg?branch=master)](https://travis-ci.org/takamin/hash-arg)
+
 The __hash-arg__ is a simple module for node.js to get
 an argv as an object represented by specified keys.
 

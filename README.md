@@ -1,7 +1,12 @@
 hash-arg 
 ========
 
+<span class="display:inline-block;"> ![version](https://img.shields.io/npm/v/hash-arg)
+![license](https://img.shields.io/npm/l/hash-arg)
 [![Build Status](https://travis-ci.org/takamin/hash-arg.svg?branch=master)](https://travis-ci.org/takamin/hash-arg)
+[![Coverage Status](https://coveralls.io/repos/github/takamin/hash-arg/badge.svg?branch=master)](https://coveralls.io/github/takamin/hash-arg?branch=master)
+![node version](https://img.shields.io/node/v/hash-arg)
+</span>
 
 The __hash-arg__ is a simple module for node.js to get
 an argv as an object represented by specified keys.

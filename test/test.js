@@ -1,5 +1,7 @@
 var chai = require("chai");
 var HashArg = require('../lib/index.js');
+const assert = chai.assert;
+
 describe("hash-arg", function() {
     var test_cases = [
         [
@@ -301,6 +303,67 @@ describe("hash-arg", function() {
                 } catch(err) {
                     chai.assert(true);
                 }
+            });
+        });
+    });
+    describe("About Array type specification", ()=>{
+        describe("Type name omitting", ()=>{
+            it("should recognize the type is Array<string> in C-style", ()=>{
+                const definition = ["[] arg"];
+                const argv = ["1", "AB", "CD"];
+                assert.deepEqual(HashArg.get( definition, argv ),
+                    { arg: ["1", "AB", "CD"] });
+            });
+            it("should recognize the type is Array<string> in UML-style", ()=>{
+                const definition = ["arg:[]"];
+                const argv = ["1", "AB", "CD"];
+                assert.deepEqual(HashArg.get( definition, argv ),
+                    { arg: ["1", "AB", "CD"] });
+            });
+        });
+        it("should be at last position in C-style", ()=>{
+            assert.throw(()=>{
+                const definition = ["string[] sa", "string s"];
+                const argv = ["1", "AB", "CD"];
+                JSON.stringify(HashArg.get( definition, argv ));
+            });
+        });
+        it("should be at last position in UML style", ()=>{
+            assert.throw(()=>{
+                const definition = ["sa:string[]", "s:string"];
+                const argv = ["1", "AB", "CD"];
+                JSON.stringify(HashArg.get( definition, argv ));
+            });
+        });
+        describe("Less parameters are supplied than definition", ()=>{
+            it("should be null for the parameter that is not supplied", ()=>{
+                const definition = ["string a", "string b", "string c"];
+                const argv = ["A", "B"];
+                const args = HashArg.get( definition, argv );
+                assert.isNull(args.c);
+            });
+        });
+        describe("Definition with object", ()=>{
+            describe("Without name", ()=>{
+                it("should name the parameter with its index", ()=>{
+                    const definition = [ { type: "string" }, { type: "string" } ];
+                    const argv = [ "A", "B" ];
+                    const args = HashArg.get( definition, argv );
+                    assert.equal(args["#0"], "A");
+                    assert.equal(args["#1"], "B");
+                });
+                it("should recognize the parameter is array", ()=>{
+                    const definition = [{ type: "string[]" }];
+                    const argv = [ "A", "B" ];
+                    const args = HashArg.get( definition, argv );
+                    assert.deepEqual(args["#0"], ["A", "B"]);
+                });
+                it("should recognize the parameter is array", ()=>{
+                    const definition = [{ type: "string", default: "X" }];
+                    const argv = [ ];
+                    const args = HashArg.get( definition, argv );
+                    assert.equal(args["#0"], "X");
+                });
             });
         });
     });

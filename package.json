@@ -1,7 +1,7 @@
 {
   "name": "hash-arg",
-  "version": "0.3.5",
-  "description": "Get argv as an object represented by specified keys and values",
+  "version": "1.0.0",
+  "description": "CLI parameter parser to get the named and typed value",
   "repository": {
     "type": "git",
     "url": "https://github.com/takamin/hash-arg"
@@ -13,6 +13,9 @@
   "scripts": {
     "coverage": "nyc --reporter=html --reporter=text mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint .",
+    "lint-watch": "npx eslint-watch --watch",
+    "test-watch": "mocha --watch",
     "test": "nyc mocha"
   },
   "keywords": [
@@ -23,10 +26,14 @@
   "author": "Koji Takami",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.2.0",
     "coveralls": "^3.0.9",
-    "mocha": "^4.1.0",
-    "node-getopt": "^0.2.3",
+    "eslint": "^6.8.0",
+    "eslint-plugin-jsdoc": "^22.0.0",
+    "eslint-watch": "^6.0.1",
+    "mocha": "^7.1.0",
+    "node-getopt": "^0.3.2",
     "nyc": "^15.0.0"
-  }
+  },
+  "dependencies": {}
 }

@@ -8,9 +8,7 @@ hash-arg
 ![node version](https://img.shields.io/node/v/hash-arg)
 </span>
 
-The __hash-arg__ is a simple module for node.js to get
-an argv as an object represented by specified keys.
-
+This is a CLI parameter parser to get the named and typed value.
 
 ## Simple use with 'process.argv'
 
@@ -19,7 +17,7 @@ Simply, get method names each elements in process.argv.
 __simple.js__
 
 ```
-args = require("hash-arg").get(
+const args = require("hash-arg").get(
         "inputFilePath outputFilePath");
 
 console.log(JSON.stringify(args, null, "  "));

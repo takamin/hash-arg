@@ -1,9 +1,27 @@
 var chai = require("chai");
 var HashArg = require('../lib/index.js');
 const assert = chai.assert;
+process.argv = ["node", "mocha", "AAA", "BBB", "CCC"];
 
 describe("hash-arg", function() {
     var test_cases = [
+        [
+            "A B C D", null,
+            {
+                "A":"AAA",
+                "B":"BBB",
+                "C":"CCC",
+                "D": null
+            }
+        ],[
+            "A B C D", process.argv,
+            {
+                "A":"AAA",
+                "B":"BBB",
+                "C":"CCC",
+                "D": null
+            }
+        ],
         [
             "A B C", ["1","2"],
             {
@@ -212,54 +230,8 @@ describe("hash-arg", function() {
             {
                 "A" : "ABC"
             }
-        ]
+        ],
     ];
-    if(process.argv.length == 2 + 3) {
-        test_cases.push([
-                "A B C D", null,
-                {
-                    "A":"AAA",
-                    "B":"BBB",
-                    "C":"CCC",
-                    "D": null
-                }]);
-        test_cases.push([
-                "A B C D", process.argv,
-                {
-                    "A":"AAA",
-                    "B":"BBB",
-                    "C":"CCC",
-                    "D": null
-                }]);
-    } else {
-        test_cases.push([
-                "A B C D", process.argv,
-                {
-                    "A": null,
-                    "B": null,
-                    "C": null,
-                    "D": null
-                }]);
-    }
-    function match(a,b) {
-        var result = true;
-        Object.keys(a).forEach(function(key) {
-            if(!Array.isArray(a[key])) {
-                if(b[key] !== a[key]) {
-                    result = false;
-                }
-            } else if(!Array.isArray(b[key])) {
-                result = false;
-            } else {
-                for(var i = 0; i < a[key].length; i++) {
-                    if(a[key][i] !== b[key][i]) {
-                        result = false;
-                    }
-                }
-            }
-        });
-        return result;
-    }
 
     // Run all test case
     test_cases.forEach(function(test_case) {
@@ -268,41 +240,29 @@ describe("hash-arg", function() {
             chai.assert.deepEqual(test_case[2], args);
         });
     });
-    describe("The array type can be specified for only last argumnent definition", function() {
+    describe("The array type can be specified for not only last argumnent definition", function() {
         describe("C-style type specification", function() {
-            it("should throw an error for array type of string", function() {
-                try {
+            it("should not throw an error for array type of string", function() {
+                assert.doesNotThrow(()=>{
                     HashArg.get("string[] str", "string[] x");
-                    chai.assert(false);
-                } catch(err) {
-                    chai.assert(true);
-                }
+                });
             });
             it("should throw an error for array type of number", function() {
-                try {
+                assert.doesNotThrow(()=>{
                     HashArg.get("number[] num", "number[] n");
-                    chai.assert(false);
-                } catch(err) {
-                    chai.assert(true);
-                }
+                });
             });
         });
         describe("UML-style type specification", function() {
-            it("should throw an error for array type of string", function() {
-                try {
+            it("should not throw an error for array type of string", function() {
+                assert.doesNotThrow(()=>{
                     HashArg.get("str:string[]", "x:string[]");
-                    chai.assert(false);
-                } catch(err) {
-                    chai.assert(true);
-                }
+                });
             });
             it("should throw an error for array type of number", function() {
-                try {
+                assert.doesNotThrow(()=>{
                     HashArg.get("num:number[]", "n:number[]");
-                    chai.assert(false);
-                } catch(err) {
-                    chai.assert(true);
-                }
+                });
             });
         });
     });

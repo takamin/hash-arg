@@ -1,6 +1,6 @@
 {
   "name": "hash-arg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI parameter parser to get the named and typed value",
   "repository": {
     "type": "git",
@@ -10,6 +10,10 @@
     "lib": "./lib"
   },
   "main": "./lib/index.js",
+  "engine": {
+    "node": ">=10.10.0",
+    "npm": ">=6.4.1"
+  },
   "scripts": {
     "coverage": "nyc --reporter=html --reporter=text mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
@@ -19,9 +23,10 @@
     "test": "nyc mocha"
   },
   "keywords": [
-    "argv",
     "cli",
-    "command line parameters"
+    "parameter",
+    "parser",
+    "argv"
   ],
   "author": "Koji Takami",
   "license": "MIT",

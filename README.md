@@ -9,6 +9,9 @@ hash-arg
 </span>
 
 This is a CLI parameter parser to get the named and typed value.
+But any options started with '-' or '--' never be parsed by this package.
+If such options are needed, At first, use other option parser like 'node-getopt'
+and then process the rest parameters with this package.
 
 ## Simple use with 'process.argv'
 
@@ -119,7 +122,7 @@ The available type is 'string' or 'number'.
 When the declaration is separated by space,
 it represents the type and its name.
 
-And, when it is separated by semi-colon,
+And, when it is separated by a colon,
 those are the name and its type.
 
 ```
